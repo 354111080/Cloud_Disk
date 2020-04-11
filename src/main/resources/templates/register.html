@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<link rel="stylesheet" th:href="@{/css/bootstrap.css}" />
+		<link rel="stylesheet" th:href="@{/css/register.css}" />
+	</head>
+	<body background="https://passport.baidu.com/static/passpc-account/img/reg_bg_min.jpg">
+		<nav class="nav">
+			<div class="navbar-header">
+				<span class="navbar-brand" style="font-size: 66px;margin-top: 6px;color: #E3E3E3;text-shadow: 6px 6px 6px #E2E2E2;">Cloud Disk</span>
+			</div>
+		</nav>
+		<div id="register_panel">
+			<form class="form-inline" style="margin-top: 48px; margin-left: 60px;" id="register_form">
+				<h1 th:text="#{register.welcome}">欢迎注册</h1>
+				<p ><span th:text="#{register.have}"></span><a href="/" th:text="#{register.login}"></a></p><br />
+				<div class="input-group">
+					<div class="input-group-addon" th:text="#{register.username}">用户名</div>
+					<input type="text" class="form-control" th:onblur="checkUsername()" th:placeholder="#{register.setusername}" maxlength="14" id="username" name="username" data-trigger="onclick" th:data-content="#{register.usernamelimit}" data-container="body"
+					data-toggle="popover" data-placement="top" />
+				</div><br><span id="username_text" th:text="#{register.usernameformat}" style="display: none"></span>
+				<br /><br />
+				<div class="input-group">
+					<div class="input-group-addon"><span th:text="#{register.you}"></span>&nbsp;&nbsp;&nbsp;<span th:text="#{register.xiang}"></span></div>
+					<input type="text" class="form-control" id="email" name="email_head" th:onkeyup="checkEmail()" th:placeholder="#{register.setemail}" maxlength="30"/>
+					<div class="input-group-addon">
+						<select id="suffix" style="background-color: transparent; border: 0;">
+							<option>@qq.com</option>
+							<option>@163.com</option>
+							<option>@126.com</option>
+							<option>@gmail.com</option>
+						</select>
+					</div>
+				</div><br><span id="email_text" style="display: none;" th:text="#{register.emailformat}"></span>
+				<br /><br />
+				<div class="input-group">
+					<div class="input-group-addon"><span th:text="#{register.mi}"></span>&nbsp;&nbsp;&nbsp;<span th:text="#{register.ma}"></span></div>
+					<input class="form-control" type="password" th:onkeyup="checkPassword()" id="password" name="password" th:placeholder="#{register.setpassword}" maxlength="12" data-trigger="onclick" th:data-content="#{register.passwordlimit}" data-container="body"
+					data-toggle="popover" data-placement="top"/>
+					<div class="input-group-addon btn" style="width: 126px;" onclick="exchangePwdStatus()" id="control_password">
+						Show
+					</div>
+				</div><br><span id="password_text" th:text="#{register.passworformat}" style="display: none;"></span>
+				<br /><br />
+				<div class="input-group">
+					<div class="input-group-addon" th:text="#{register.varify}">验证码</div>
+					<input class="form-control" id="verifyCode" name="verifyCode" type="text" th:placeholder="#{register.setvarify}" maxlength="6" />
+					<div class="input-group-addon btn" id="getCodeButton" onclick="sendVerifyCode()" style="width: 126px;" >
+						<span id="getCodeText" th:text="#{register.getcode}" ></span><span id="loadImg" style="display: none"><img th:src="@{/img/loading-sm.gif}"/></span>
+					</div>
+				</div><br /><br />
+			</form>
+			<button onclick="submitData()" class="btn btn-info btn-block" id="register_button" style="width: 196px;margin-left: 144px;" th:text="#{register.toregister}" ></button>
+		</div>
+		<div id="text_block">
+			<p style="font-size: 66px;color: #E6E6E6; margin-left: 360px;">
+				<span th:text="#{register.text1}">让复杂的世界</span><br />
+				<span th:text="#{register.text2}">更简单</span>
+			</p>
+		</div>
+		<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+						<h4 class="modal-title" id="myModalLabel">提示</h4>
+					</div>
+					<div class="modal-body" id="dialog_tips"></div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
+					</div>
+				</div><!-- /.modal-content -->
+			</div><!-- /.modal -->
+		</div>
+		<script type="text/javascript" th:src="@{/modules/jquery.min.js}"></script>
+		<script type="text/javascript" th:src="@{/js/bootstrap.js}"></script>
+		<script type="text/javascript" th:src="@{/js/register.js}"></script>
+		<script type="text/javascript">
+			$(function () { 
+				$("[data-toggle='popover']").popover();
+			});
+		</script>
+	</body>
+</html>

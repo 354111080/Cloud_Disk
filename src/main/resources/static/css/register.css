@@ -1,0 +1,18 @@
+#register_panel{
+	border-radius: 3%;
+	border: 1px solid #101010;
+	box-shadow:	#E2E2E2 0px -4px 6px -2px,
+				#E2E2E2 4px 0 6px -1px,
+				#E2E2E2 0 4px 6px -1px;
+	width: 500px;
+	height: 500px;
+	background-color: white;
+	margin-top: 66px;
+	margin-right: 220px;
+	opacity: 0.9;
+	float: right;
+}
+
+#text_block{
+	margin-top: 500px;
+}

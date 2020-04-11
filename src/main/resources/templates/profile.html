@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no" name="viewport">
+  <title>Cloud disk</title>
+
+  <link rel="stylesheet" th:href="@{/modules/bootstrap/css/bootstrap.min.css}">
+  <link rel="stylesheet" th:href="@{/modules/ionicons/css/ionicons.min.css}">
+  <link rel="stylesheet" th:href="@{/modules/fontawesome/web-fonts-with-css/css/fontawesome-all.min.css}">
+
+  <link rel="stylesheet" th:href="@{/css/demo.css}">
+  <link rel="stylesheet" th:href="@{/css/style.css}">
+  <link rel="stylesheet" th:href="@{/css/style.css}" />
+  <link rel="stylesheet" th:href="@{/translucent/style.css}" />
+</head>
+
+<body>
+  <div id="app">
+    <div class="main-wrapper">
+      <div class="navbar-bg"></div>
+      <nav class="navbar navbar-expand-lg main-navbar">
+        <form class="form-inline mr-auto">
+          <ul class="navbar-nav mr-3">
+            <li><a href="#" data-toggle="sidebar" class="nav-link nav-link-lg"><i class="ion ion-navicon-round"></i></a></li>
+            <li><a href="#" data-toggle="search" class="nav-link nav-link-lg d-sm-none"><i class="ion ion-search"></i></a></li>
+          </ul>
+        </form>
+        <ul class="navbar-nav navbar-right">
+          <li class="dropdown dropdown-list-toggle"><a href="#" data-toggle="dropdown" class="nav-link notification-toggle nav-link-lg beep"><i class="ion ion-ios-bell-outline"></i></a>
+            <div class="dropdown-menu dropdown-list dropdown-menu-right">
+              <div class="dropdown-header">Notifications
+                <div class="float-right">
+                  <a href="#">View All</a>
+                </div>
+              </div>
+              <div class="dropdown-list-content">
+                <a href="#" class="dropdown-item dropdown-item-unread">
+                  <img alt="image" th:src="@{/img/avatar/avatar-1.jpeg}" class="rounded-circle dropdown-item-img">
+                  <div class="dropdown-item-desc">
+                    <b>The function is coming soon！</b>
+                    <div class="time">10 Hours Ago</div>
+                  </div>
+                </a>
+              </div>
+            </div>
+          </li>
+          <li class="dropdown"><a onclick="dropLangbarForProfile()" style="cursor:pointer;" data-toggle="dropdown" class="nav-link dropdown-toggle nav-link-lg">
+            <i class="ion ion-android-person d-lg-none"></i>
+            <div class="d-sm-none d-lg-inline-block" id="langbar" th:text="${language}"></div></a>
+            <div class="dropdown-menu dropdown-menu-right">
+              <a id="choose_lang" onclick="exchangeLanguage()" style="cursor:pointer;" class="dropdown-item has-icon">
+                <i class="icon ion-arrow-swap"></i><span id="lang"></span>
+              </a>
+            </div>
+          </li>
+        </ul>
+      </nav>
+      <div class="main-sidebar">
+        <aside id="sidebar-wrapper">
+          <div class="sidebar-brand">
+            <a href="">Cloud Disk</a>
+          </div>
+          <div class="sidebar-user">
+            <div class="sidebar-user-picture">
+              <img id="userBarProfilePic" alt="image" style="width:50px;height: 50px;">
+            </div>
+            <div class="sidebar-user-details">
+              <div class="user-name" id="username"></div>
+              <div class="user-role" id="useremail">
+
+              </div>
+            </div>
+          </div>
+          <ul class="sidebar-menu">
+
+            <li class="menu-header">Components</li>
+            <li>
+            <li id="allFileOp"><a href="/main"><i class="ion ion-ios-albums-outline"></i><span th:text="#{service.allFile}">全部文件</span></a></li>
+
+            </li>
+            <li>
+              <a href="#" class="has-dropdown"><i class="ion ion-flag"></i><span th:text="#{service.social}">社交</span></a>
+              <ul class="menu-dropdown">
+                    <li>Coming soon!</li>
+<!--                <li><a href=""><i class="ion ion-ios-circle-outline"></i>好友</a></li>-->
+<!--                <li><a href=""><i class="ion ion-ios-circle-outline"></i>文件分享</a></li>-->
+              </ul>
+            </li>
+            <li class="active">
+              <a href="profile"><i class="ion ion-android-person"></i><span th:text="#{service.myinfo}">我的信息</span></a>
+            </li>
+
+            <li class="menu-header">More</li>
+            <li>
+              <div class="progress" style="margin-left: 30px;width: 180px;">
+                <div id="usageProgress" class="progress-bar bg-info"></div>
+              </div>
+              <div style="text-align: center;"><span id="usageNum"></span>/1024MB</div>
+            </li>          </ul>
+          <div class="p-3 mt-4 mb-4">
+            <a href="logout" class="btn btn-danger btn-shadow btn-round has-icon has-icon-nofloat btn-block">
+              <i class="ion ion-help-buoy"></i> <div>登出</div>
+            </a>
+          </div>
+        </aside>
+      </div>
+      <div class="main-content">
+        <section class="section">
+          <h1 class="section-header">
+            <div id="resultTitle" th:text="#{service.myinfo}">我的信息</div>
+          </h1>
+          <div class="section-body">
+            <div class="row">
+              <div class="col-12">
+                <div class="card">
+                  <div class="card-body" style="height: 660px;">
+
+                      <input id="choosePic" onchange="previewPic(this)" type="file" enctype="multipart/form-data" accept="image/gif,image/jpeg,image/jpg,image/png,image/webp" style="display: none;">
+                      <div class="sidebar-user-picture" style="width: 140px;float: right;margin-right: 720px">
+                        <button onclick="choosePic()" style="cursor: pointer;" th:text="#{service.uploadPic}">上传图片</button>
+                        <img alt="image" id="profilePic" th:src="@{/img/avatar/avatar-1.jpeg}" style="width: 140px;height: 140px;">
+                        <div style="text-align: center" th:text="#{service.currentProfilePic}">当前头像</div>
+                        <button id="saveProfilePic" class="btn btn-success" style="margin-left: 36px" onclick="submitProfilePic()" disabled>保存</button>
+                      </div>
+
+                      <div class="card" style="width:660px;float:right;margin-top: 66px;margin-right: 450px">
+                        <div class="input-group mb-3" style="margin-top: 20px">
+                          <div class="input-group-prepend">
+                            <span class="input-group-text" th:text="#{register.username}">用户名</span>
+                          </div>
+                          <input type="text" class="form-control" id="changeUserName" onkeyup="modifyUsername()" placeholder="您的用户名" maxlength="14" data-trigger="onclick" th:data-content="#{register.usernamelimit}" data-container="body"
+                                 data-toggle="popover" data-placement="top">
+                          <button id="modifyUsernameButton" class="btn btn-primary"  onclick="saveUserName()" disabled="disabled">
+                            保存
+                          </button>
+                        </div>
+                        <div class="input-group mb-3">
+                          <div class="input-group-prepend">
+                            <span class="input-group-text">密&nbsp;&nbsp;&nbsp;码</span>
+                          </div>
+                          <input type="text" class="form-control" placeholder="*******" disabled>
+                          <button class="btn btn-primary"  data-toggle="modal" data-target="#myModal" >
+                            修改
+                          </button>
+
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <footer class="main-footer">
+        <div class="footer-left">
+          Copyright &copy; 2020 <div class="bullet"></div> Developed by - Eton King 
+        </div>
+        <div class="footer-right"></div>
+      </footer>
+    </div>
+  </div>
+
+  <!-- 密码修改 -->
+  <div class="modal fade" id="myModal"  tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+
+        <!-- 模态框头部 -->
+        <div class="modal-header">
+          <h4 class="modal-title">修改密码</h4>
+        </div>
+
+        <!-- 模态框主体 -->
+        <div class="modal-body">
+          <form id="modifyPasswordForm">
+            <input type="password" class="form-control" id="originalPass" name="originalPass" placeholder="请输入原密码">
+            <input type="password" class="form-control" id="newPass" name="newPass" placeholder="请输入新密码" data-trigger="onclick" th:data-content="#{register.passwordlimit}" data-container="body"
+                   data-toggle="popover" data-placement="top">
+            <input type="password" class="form-control" id="confirmPass" name="confirmPass" placeholder="请确认新密码">
+            <span id="passwordInfo" style="color: red;"></span>
+          </form>
+        </div>
+
+        <!-- 模态框底部 -->
+        <div class="modal-footer">
+          <button type="button" onclick="submitNewPassword()" class="btn btn-primary">提交</button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <script th:src="@{/modules/jquery.min.js}"></script>
+  <script th:src="@{/modules/popper.js}"></script>
+  <script th:src="@{/modules/tooltip.js}"></script>
+  <script th:src="@{/modules/bootstrap/js/bootstrap.min.js}"></script>
+  <script th:src="@{/modules/nicescroll/jquery.nicescroll.min.js}"></script>
+  <script th:src="@{/modules/scroll-up-bar/dist/scroll-up-bar.min.js}"></script>
+  <script th:src="@{/js/sa-functions.js}"></script>
+  <script th:src="@{/js/scripts.js}"></script>
+  <script th:src="@{/js/custom.js}"></script>
+  <script th:src="@{/js/demo.js}"></script>
+  <script th:src="@{/translucent/jquery-translucent.js}"></script>
+  <script th:src="@{/js/usermain.js}"></script>
+  <script type="text/javascript">
+    $(function () {
+      $("[data-toggle='popover']").popover();
+    });
+  </script>
+</body>
+</html>

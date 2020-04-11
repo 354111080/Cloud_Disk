@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.eton.dao.FileMapper">
+
+    <insert id="addFile" parameterType="file">
+        INSERT INTO FILE values (#{user_id},#{id},#{name},#{type},#{size},#{create_time},#{father_dir},#{real_path},#{real_size});
+    </insert>
+
+    <select id="selectFiles" parameterType="file" resultType="file">
+        SELECT user_id,id,name,type,size,create_time,real_path FROM FILE where user_id=#{user_id} and father_dir=#{father_dir};
+    </select>
+
+    <select id="getFileByType" resultType="file" parameterType="file">
+        SELECT user_id,id,name,type,size,create_time,real_path FROM FILE where user_id=#{user_id} and type =#{type};
+    </select>
+
+    <select id="getFile" parameterType="String" resultType="file">
+        SELECT name,real_path FROM FILE WHERE id=#{fileId};
+    </select>
+
+    <select id="getRealPath" parameterType="String" resultType="String">
+        SELECT real_path FROM FILE WHERE id=#{fileId};
+    </select>
+
+    <select id="selectFilesByFatherId" parameterType="String" resultType="file">
+        SELECT id,real_path FROM FILE WHERE father_dir=#{father_dir};
+    </select>
+
+    <select id="getFileByKey" parameterType="map" resultType="file">
+        SELECT user_id,id,name,type,size,create_time,real_path FROM FILE WHERE user_id=#{user_id} and name LIKE #{key};
+    </select>
+
+    <select id="getUsage" parameterType="int" resultType="long">
+        SELECT SUM(real_size) FROM FILE WHERE user_id = #{user_id};
+    </select>
+
+    <delete id="deleteFile" parameterType="String">
+        DELETE FROM FILE WHERE id=#{fileId};
+    </delete>
+    
+    <delete id="deleteFilesByFatherId" parameterType="String">
+        DELETE FROM FILE where father_dir=#{father_dir};
+    </delete>
+    
+</mapper>

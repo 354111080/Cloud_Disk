@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<link rel="stylesheet" href="css/bootstrap.css" />
+		<link rel="stylesheet" href="css/register.css" />
+	</head>
+	<body background="https://passport.baidu.com/static/passpc-account/img/reg_bg_min.jpg">
+		<nav class="nav">
+			<div class="navbar-header">
+				<span class="navbar-brand" style="font-size: 66px;margin-top: 6px;color: #E3E3E3;text-shadow: 6px 6px 6px #E2E2E2;">Cloud Disk</span>
+			</div>
+		</nav>
+		<div id="register_panel">
+			<form action="#" class="form-inline" style="margin-top: 48px; margin-left: 60px;">
+				<h1>欢迎注册</h1>
+				<p>已有账号？<a href="#">登录</a></p><br />
+				<div class="input-group">
+					<div class="input-group-addon">用户名</div>
+					<input type="text" class="form-control" placeholder="请设置用户名" id="username" name="username" data-trigger="onclick" data-content="最长14个字符" data-container="body" 
+					data-toggle="popover" data-placement="top" />
+				</div>
+				<br /><br />
+				<div class="input-group">
+					<div class="input-group-addon">邮&nbsp;&nbsp;&nbsp;箱</div>
+					<input type="text" class="form-control"  placeholder="可用于登录和找回密码"/>
+					<div class="input-group-addon">
+						<select style="background-color: transparent; border: 0;">
+							<option>@163.com</option>
+							<option>@qq.com</option>
+							<option>@126.com</option>
+							<option>@gmail.com</option>
+						</select>
+					</div>
+				</div>
+				<br /><br />
+				<div class="input-group">
+					<div class="input-group-addon">密&nbsp;&nbsp;&nbsp;码</div>
+					<input class="form-control" type="password" placeholder="请设置登录密码" data-trigger="onclick" data-content="长度为8~12个字符(不可包含中文)" data-container="body" 
+					data-toggle="popover" data-placement="top"/>
+				</div>
+				<br /><br />
+				<div class="input-group">
+					<div class="input-group-addon">验证码</div>
+					<input class="form-control" type="text" placeholder="请输入验证码" />
+					<div class="input-group-addon btn" style="width: 126px;" >
+						获取验证码
+					</div>
+				</div><br /><br />
+				<input type="submit" class="btn btn-info btn-block" style="width: 196px;margin-left: 67px;" value="注册" />
+			</form>
+		</div>
+		<div id="text_block">
+			<p style="font-size: 66px;color: #E6E6E6; margin-left: 360px;">
+				<span>让复杂的世界</span><br />
+				<span>更简单</span>
+			</p>
+		</div>
+		<script src="http://apps.bdimg.com/libs/jquery/1.9.1/jquery.js"></script>
+		<script type="text/javascript" src="js/bootstrap.js"></script>
+		<script>
+			$(function () { 
+				$("[data-toggle='popover']").popover();
+			});
+		</script>
+	</body>
+</html>

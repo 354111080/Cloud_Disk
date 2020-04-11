@@ -1,0 +1,10 @@
+#main{
+    float: right;
+    margin-right: 760px;
+    text-align: center;
+    line-height: 200px;
+    width: 400px;
+    height: 300px;
+    border: 6px solid #1c7430 ;
+    border-radius: 18px;
+}

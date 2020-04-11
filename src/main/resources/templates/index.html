@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="utf-8" />
+	<title></title>
+	<link rel="stylesheet" th:href="@{/css/bootstrap.css}" />
+	<link rel="stylesheet" th:href="@{/css/Login.css}" />
+</head>
+<body >
+
+<nav class="nav navbar-default">
+	<div class="container-fluid">
+		<div class="navbar-header">
+			<span class="navbar-brand"><a href="">Cloud Disk</a></span>
+		</div>
+		<ul class="nav navbar-nav navbar-right">
+			<li class="dropdown">
+				<a onclick="dropLangbar()" style="cursor:pointer;" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span>Language:&nbsp;</span><span id="langbar" th:text="${language}"></span><span class="caret"></span></a>
+				<ul class="dropdown-menu">
+					<li><a id="choose_lang" onclick="exchangeLanguage()" style="cursor:pointer;"><span class="glyphicon glyphicon-arrow-right" aria-hidden="true"></span><span id="lang"></span></a></li>
+				</ul>
+			</li>
+		</ul>
+	</div>
+</nav>
+
+<div id="login_panel">
+	<h1 style="margin-left: 36px;margin-top: 66px;" th:text="#{login.tip}">登录</h1>
+	<span id="login_msg"></span><br>
+	<form class="form-inline" id="login_form">
+		<input style="margin-left: 36px;width: 253px;" class="form-control btn-lg" type="text" id="email" name="email" th:placeholder="#{login.email}" /><br>
+		<input style="margin-left: 36px;width: 253px;" class="form-control btn-lg" type="password" id="password" name="password" th:placeholder="#{login.password}" /><br>
+		<input style="margin-left: 36px; margin-top: 10px;" type="checkbox" name="autoLogin" class="form-group" /><span class="form-group" style="margin-top: 10px;" th:text="#{login.auto}"> 下次自动登录</span><br />
+	</form>
+	<button style="margin-left: 36px;width: 253px;margin-top: 10px;" onclick="checkLogin()" class="btn btn-info btn-block">[[#{login.button}]]</button><br><br>
+	<a href="findPassword" style="margin-left: 36px;" th:text="#{login.forget}">忘记密码</a><span>?</span>
+	<div style="margin-top: 14.4px;background-color: #EBEBEB;height: 66px;"><a href="register" style="text-align: center;"><p style="line-height: 66px;" th:text="#{login.register}">注册账号</p></a></div>
+</div>
+<div id="text_block">
+	<p id="p_text">
+		<span id="sp1" style="font-size: 66px;color: #D1D1D1;" th:text="#{login.text1}">多端并用</span><br />
+		<span id="sp2" style="font-size: 66px;color: #D1D1D1;" th:text="#{login.text2}">数据随身携带</span>
+		<span id="sp3" style="font-size: 66px;color: #D1D1D1;" th:text="#{login.text3}">在线预览</span><br />
+		<span id="sp4" style="font-size: 66px;color: #D1D1D1;" th:text="#{login.text4}">文件即开即用</span>
+	</p>
+</div>
+<div class='solar-syst' style="position: fixed;top: 5%;left: 0%">
+	<div class='sun'></div>
+	<div class='mercury'></div>
+	<div class='venus'></div>
+	<div class='earth'></div>
+	<div class='mars'></div>
+	<div class='jupiter'></div>
+	<div class='saturn'></div>
+	<div class='uranus'></div>
+	<div class='neptune'></div>
+	<div class='pluto'></div>
+	<div class='asteroids-belt'></div>
+</div>
+<script type="text/javascript" th:src="@{/modules/jquery.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/bootstrap.js}"></script>
+<script type="text/javascript" th:src="@{/js/index.js}"></script>
+</body>
+</html>

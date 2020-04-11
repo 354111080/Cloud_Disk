@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.eton.dao.UserMapper">
+
+    <select id="selectUserByEmail" parameterType="String" resultType="String">
+        SELECT email FROM USER WHERE email = #{email};
+    </select>
+
+    <select id="checkUserByEmail" parameterType="String" resultType="user">
+        SELECT id,email,password FROM USER WHERE email=#{email};
+    </select>
+
+    <select id="getUser" parameterType="String" resultType="user">
+        SELECT id,email,username,password,profile_pic FROM USER WHERE email=#{email};
+    </select>
+
+    <select id="getUserProfilePic" resultType="String" parameterType="int">
+        SELECT profile_pic FROM USER WHERE id=#{user_id};
+    </select>
+
+    <update id="addProfilePic" parameterType="user">
+        UPDATE USER SET profile_pic = #{profile_pic} WHERE id=#{id};
+    </update>
+
+    <update id="updatePassword" parameterType="user">
+        UPDATE USER SET password = #{password} WHERE id=#{id};
+    </update>
+
+    <insert id="addNewUser" parameterType="user">
+        INSERT INTO USER (id,email,username,password,profile_pic) values (#{id},#{email},#{username},#{password},#{profile_pic});
+    </insert>
+
+    <update id="updateUsername" parameterType="user">
+        UPDATE USER SET username = #{username} WHERE id=#{id};
+    </update>
+    
+</mapper>

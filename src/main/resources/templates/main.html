@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no" name="viewport">
+  <title>Cloud disk</title>
+
+  <link rel="stylesheet" th:href="@{/modules/bootstrap/css/bootstrap.min.css}">
+  <link rel="stylesheet" th:href="@{/modules/ionicons/css/ionicons.min.css}">
+  <link rel="stylesheet" th:href="@{/modules/fontawesome/web-fonts-with-css/css/fontawesome-all.min.css}">
+
+  <link rel="stylesheet" th:href="@{/css/demo.css}">
+  <link rel="stylesheet" th:href="@{/css/style.css}">
+  <link rel="stylesheet" th:href="@{/css/style.css}" />
+  <link rel="stylesheet" th:href="@{/translucent/style.css}" />
+</head>
+
+<body>
+  <div id="app">
+    <div class="main-wrapper">
+      <div class="navbar-bg"></div>
+      <nav class="navbar navbar-expand-lg main-navbar">
+        <form class="form-inline mr-auto">
+          <ul class="navbar-nav mr-3">
+            <li><a href="#" data-toggle="sidebar" class="nav-link nav-link-lg"><i class="ion ion-navicon-round"></i></a></li>
+            <li><a href="#" data-toggle="search" class="nav-link nav-link-lg d-sm-none"><i class="ion ion-search"></i></a></li>
+          </ul>
+        </form>
+        <ul class="navbar-nav navbar-right">
+          <li class="dropdown dropdown-list-toggle"><a href="#" data-toggle="dropdown" class="nav-link notification-toggle nav-link-lg beep"><i class="ion ion-ios-bell-outline"></i></a>
+            <div class="dropdown-menu dropdown-list dropdown-menu-right">
+              <div class="dropdown-header">Notifications
+                <div class="float-right">
+                  <a href="#">View All</a>
+                </div>
+              </div>
+              <div class="dropdown-list-content">
+                <a href="#" class="dropdown-item dropdown-item-unread">
+                  <img alt="image" th:src="@{/img/avatar/avatar-1.jpeg}" class="rounded-circle dropdown-item-img">
+                  <div class="dropdown-item-desc">
+                    <b>The function is coming soon！</b>
+                    <div class="time">10 Hours Ago</div>
+                  </div>
+                </a>
+              </div>
+            </div>
+          </li>
+          <li class="dropdown"><a onclick="dropLangbar()" style="cursor:pointer;" data-toggle="dropdown" class="nav-link dropdown-toggle nav-link-lg">
+            <i class="ion ion-android-person d-lg-none"></i>
+            <div class="d-sm-none d-lg-inline-block" id="langbar" th:text="${language}"></div></a>
+            <div class="dropdown-menu dropdown-menu-right">
+              <a id="choose_lang" onclick="exchangeLanguage()" style="cursor:pointer;" class="dropdown-item has-icon">
+                <i class="icon ion-arrow-swap"></i><span id="lang"></span>
+              </a>
+            </div>
+          </li>
+        </ul>
+      </nav>
+      <div class="main-sidebar">
+        <aside id="sidebar-wrapper">
+          <div class="sidebar-brand">
+            <a href="">Cloud Disk</a>
+          </div>
+          <div class="sidebar-user">
+            <div class="sidebar-user-picture">
+              <img id="userBarProfilePic" alt="image" style="width:50px;height: 50px;">
+            </div>
+            <div class="sidebar-user-details">
+              <div class="user-name" id="username"></div>
+              <div class="user-role" id="useremail">
+
+              </div>
+            </div>
+          </div>
+          <ul class="sidebar-menu">
+
+            <li class="menu-header">Components</li>
+            <li>
+            <li id="allFileOp" class="active"><a href="/main"><i class="ion ion-ios-albums-outline"></i><span th:text="#{service.allFile}">全部文件</span></a></li>
+              <ul >
+                <li id="image"><a href="javascript:void(0)" onclick="getFilesByType('image')"><i class="ion ion-ios-circle-outline"></i><span th:text="#{service.image}"></span></a></li>
+                <li id="document"><a href="javascript:void(0)" onclick="getFilesByType('document')"><i class="ion ion-ios-circle-outline"></i><span th:text="#{service.document}"></span></a></li>
+                <li id="video"><a href="javascript:void(0)" onclick="getFilesByType('video')"><i class="ion ion-ios-circle-outline"></i><span th:text="#{service.video}"></span></a></li>
+                <li id="audio"><a href="javascript:void(0)" onclick="getFilesByType('audio')"><i class="ion ion-ios-circle-outline"></i><span th:text="#{service.audio}"></span></a></li>
+                <li id="other"><a href="javascript:void(0)" onclick="getFilesByType('other')"><i class="ion ion-ios-circle-outline"></i><span th:text="#{service.other}"></span></a></li>
+              </ul>
+            </li>
+            <li>
+              <a href="#" class="has-dropdown"><i class="ion ion-flag"></i><span th:text="#{service.social}"></span></a>
+              <ul class="menu-dropdown">
+                <li>Coming soon!</li>
+<!--                <li><a href="ion-icons.html"><i class="ion ion-ios-circle-outline"></i>好友</a></li>-->
+<!--                <li><a href="main.html"><i class="ion ion-ios-circle-outline"></i>文件分享</a></li>-->
+              </ul>
+            </li>
+            <li>
+              <a href="profile"><i class="ion ion-android-person"></i><span th:text="#{service.myinfo}">我的信息</span></a>
+            </li>
+
+            <li class="menu-header">Usage</li>
+            <li>
+              <div class="progress" style="margin-left: 30px;width: 180px;">
+                <div id="usageProgress" class="progress-bar bg-info"></div>
+              </div>
+              <div style="text-align: center;"><span id="usageNum"></span>/1024MB</div>
+            </li>
+          </ul>
+          <div class="p-3 mt-4 mb-4">
+            <a href="logout" class="btn btn-danger btn-shadow btn-round has-icon has-icon-nofloat btn-block">
+              <i class="ion ion-help-buoy"></i> <div>登出</div>
+            </a>
+          </div>
+        </aside>
+      </div>
+      <div class="main-content">
+        <section class="section">
+          <h1 class="section-header">
+            <div id="resultTitle" th:text="#{service.allFile}">全部文件</div>
+
+              <div class="form-inline search-element" style="float: right;">
+                <input class="form-control" id="searchKey" type="text" placeholder="Search">
+                <button class="btn" onclick="searchFile()"><i class="ion ion-search"></i></button>
+              </div>
+
+            <form id="upload_form">
+              <input type="file" style="display: none" onchange="createUploadInfo()" name="upload_file" id="btn_upload">
+            </form>
+            <button id="fileUploadButton" class="btn btn-primary" style="width: 180px;height: 36px;line-height: 18px;margin-left: 30px" onclick="upload()"><i class="icon ion-upload"></i><span th:text="#{service.upload}"></span></button>
+            <button id="createNewFolderButton" class="btn btn-primary" style="width: 180px;height: 36px;line-height: 18px;margin-left: 18px" onclick="createFolder()"><i class="icon ion-plus"></i><span th:text="#{service.createfolder}"></span></button>
+          </h1>
+          <div class="section-body">
+            <div class="row">
+              <div class="col-12">
+                <div class="card">
+                  <div class="card-body" style="height: 660px;">
+
+                    <!--路径导航-->
+                    <div class="container-fluid" id="dir_nav">
+                      <div class="row-fluid">
+                        <div class="span12">
+                          <ul class="breadcrumb" id="dirNav">
+                            <li id="navRoot">
+                              <a href="javascript:void(0);" style="cursor: pointer;" id="root" onclick="skipDir(this)">root</a> <span class="divider">/</span>
+                            </li>
+
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!--文件列表-->
+                    <div class="col-12 col-sm-12 col-lg-12 table-responsive" style="height:550px;overflow-y: auto">
+                      <table class="table table-hover table-striped text-nowrap">
+                        <!--表头-->
+                        <thead>
+                          <tr>
+                            <th th:text="#{service.filename}">文件名</th>
+                            <th th:text="#{service.filetype}">类型</th>
+                            <th >大小</th>
+                            <th th:text="#{service.createtime}">创建时间</th>
+                            <th > 操作</th>
+                          </tr>
+                        </thead>
+
+                        <!--路径内容-->
+                        <tbody id="folderZone">
+
+                        </tbody>
+
+                        <!--文件内容-->
+                        <tbody id="fileZone">
+
+                        </tbody>
+
+                      </table>
+
+                      <div id="isFileEmpty" style="text-align: center;" th:text="#{service.filetip}"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+
+
+      <footer class="main-footer">
+        <div class="footer-left">
+          Copyright &copy; 2020 <div class="bullet"></div> Developed by - Eton King 
+        </div>
+        <div class="footer-right"></div>
+      </footer>
+    </div>
+  </div>
+
+  <script th:src="@{/modules/jquery.min.js}"></script>
+  <script th:src="@{/modules/popper.js}"></script>
+  <script th:src="@{/modules/tooltip.js}"></script>
+  <script th:src="@{/modules/bootstrap/js/bootstrap.min.js}"></script>
+  <script th:src="@{/modules/nicescroll/jquery.nicescroll.min.js}"></script>
+  <script th:src="@{/modules/scroll-up-bar/dist/scroll-up-bar.min.js}"></script>
+  <script th:src="@{/js/sa-functions.js}"></script>
+  <script th:src="@{/js/scripts.js}"></script>
+  <script th:src="@{/js/custom.js}"></script>
+  <script th:src="@{/js/demo.js}"></script>
+  <script th:src="@{/translucent/jquery-translucent.js}"></script>
+  <script th:src="@{/js/usermain.js}"></script>
+</body>
+</html>
